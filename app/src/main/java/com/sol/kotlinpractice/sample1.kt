@@ -1,5 +1,8 @@
 package com.sol.kotlinpractice
 
+import androidx.compose.ui.text.toUpperCase
+import java.util.Locale
+
 fun main(){
     // 3. String Template
     val name = "sol"
@@ -9,6 +12,10 @@ fun main(){
     // 만약 $가 쓰고 싶다면 \$ 이렇게쓰면 달러표시 문자자체로 쓸수있다
     println("my name is ${lastname + name}")
     ckNum(1)
+    forandWhile()
+    sumFor()
+    nullcheck()
+    ignoreNulls("lim")
 }
 // 4. 조건식
 fun maxBy(a : Int, b: Int) : Int{
@@ -86,4 +93,58 @@ fun array(){
     var arrayList = arrayListOf<Int>()
     arrayList.add(10)
     arrayList.add(20)
+    arrayList[0] = 20
+}
+// 6.반복문(For & While)
+fun forandWhile(){
+    val students = arrayListOf("park","lee","kim")
+    for(name in students){
+        println("${name}")
+    }
+    var index = 0;
+    for((index, name) in students.withIndex()){
+        println("${index+1} 번째학생 ${name}")
+    }
+
+}
+fun sumFor(){
+var sum : Int = 0;
+for (i in 1..10) { // i in 1..10 step 2 : 1,3,5,7,9..
+    // i in 10 downTo 1 : 10부터 1 까지 꺼꾸로
+    // i in 1 until 100 : 1부터 99까지만(100은 포함하지 않는다)
+    sum += i
+    }
+    println(sum)
+}
+// while
+fun wh(){
+    var index = 0;
+    while (index < 10){
+        println(index)
+        index++
+    }
+}
+
+// 7. Nullable / NonNull
+fun nullcheck(){
+    // 자바NPE : NullPointerExcetion - 실행을 해봐야 아는 에러(컴파일 시점에 따지는)
+    var name = "sol"; // null 이면 안되는 타입
+    var nullName : String? = null // ?를 붙이면 null 이 가능 ! 이런경우 타입 생략 불가능
+    var nameInUpperCase = name.uppercase()
+    var nullNameInUpperCase = nullName?.uppercase() // ?를 붙이게 되면 nullName이 null값이면 null반환, 아니라면 문자열 반환
+    // ?: = 앨비스 프레슬리..? 연산자 ㅋㅋㅋ
+    val lastName :String? = "Lim";
+    val fullName = name +" " + (lastName?:"No LastName")
+    println(fullName)
+    // !! = 이거 null 아닌거 내가 보증해줄께~ 하는 느낌
+}
+
+fun ignoreNulls(str : String?){
+    val mNotNull : String = str!! // 이거 절대 null 안들어가!
+    val upper = mNotNull.uppercase()
+
+    val email : String? = "dlathf0202@naver.com"
+    email?.let { // ?.let : null이 아니라면~ 해!
+        println("my email is ${it}")
+    }
 }
